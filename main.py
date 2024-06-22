@@ -17,6 +17,7 @@ green = (76, 208, 56)
 red = (200, 0, 0)
 white = (255, 255, 255)
 yellow = (255, 232, 0)
+black = (0, 0, 0)
 
 # road and marker sizes
 road_width = 300
@@ -67,7 +68,7 @@ class Vehicle(pygame.sprite.Sprite):
 class PlayerVehicle(Vehicle):
     
     def __init__(self, x, y):
-        image = pygame.image.load("images/car.png")
+        image = pygame.image.load("images/taxi.png")
         super().__init__(image, x, y)
         
 # sprite groups
@@ -79,7 +80,7 @@ player = PlayerVehicle(player_x, player_y)
 player_group.add(player)
 
 # load the vehicle images
-image_filenames = ["pickup_truck.png", "semi_trailer.png", "taxi.png", "van.png"]
+image_filenames = ["pickup_truck.png", "semi_trailer.png", "car.png", "van.png"]
 vehicle_images = []
 for image_filename in image_filenames:
     image = pygame.image.load('images/' + image_filename)
@@ -124,14 +125,14 @@ while running:
             
             
     # draw the grass
-    screen.fill(green)
+    screen.fill(red)
     
     # draw the road
     pygame.draw.rect(screen, gray, road)
     
     # draw the edge markers
-    pygame.draw.rect(screen, yellow, left_edge_marker)
-    pygame.draw.rect(screen, yellow, right_edge_marker)
+    pygame.draw.rect(screen, white, left_edge_marker)
+    pygame.draw.rect(screen, white, right_edge_marker)
     
     # draw the lane markers
     lane_marker_move_y += speed * 2
@@ -182,10 +183,10 @@ while running:
     vehicle_group.draw(screen)
     
     # display the score
-    font = pygame.font.Font(pygame.font.get_default_font(), 16)
+    font = pygame.font.Font(pygame.font.get_default_font(), 18)
     text = font.render('Score: ' + str(score), True, white)
     text_rect = text.get_rect()
-    text_rect.center = (50, 400)
+    text_rect.center = (50, 40)
     screen.blit(text, text_rect)
     
     # check if there's a head on collision
@@ -197,10 +198,10 @@ while running:
     if gameover:
         screen.blit(crash, crash_rect)
         
-        pygame.draw.rect(screen, red, (0, 50, width, 100))
+        pygame.draw.rect(screen, white, (0, 50, width, 100))
         
         font = pygame.font.Font(pygame.font.get_default_font(), 16)
-        text = font.render('Game over. Play again? (Enter Y or N)', True, white)
+        text = font.render('Game over. Play again? (Enter Y or N)', True, black)
         text_rect = text.get_rect()
         text_rect.center = (width / 2, 100)
         screen.blit(text, text_rect)
